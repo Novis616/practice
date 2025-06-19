@@ -1,0 +1,40 @@
+name: Deploy
+
+# Срабатывает при пуше в ветку main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Разрешение для записи в репозиторий
+
+    steps:
+      # 1. Загрузка репозитория
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Установка Node.js
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # 3. Установка зависимостей
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Сборка проекта
+      - name: Build project
+        run: npm run build
+
+      # 5. Деплой на GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Папка со сборкой
+          keep_files: false # Очистить ветку перед деплоем
