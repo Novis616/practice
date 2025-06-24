@@ -231,6 +231,85 @@ body {
   letter-spacing: 0%;
 }
 
+.detail-item-p2 {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.docs-icons {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  background: #f4f6f8;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.detail-label-p2 {
+  color: var(--FieldWrapper-label-text-default, #151b1e);
+  font-family: "Wix Madefor Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px; /* 112.5% */
+}
+
+.detail-value-p2 {
+  color: var(--Colors-dark, #151b1e);
+
+  /* Text/M */
+  font-family: "Wix Madefor Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 137.5% */
+}
+
+.important-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #e3f2fd;
+  border: 2px dashed #64b5f6;
+}
+
+.important-block svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.important-block-content {
+  flex: 1;
+}
+
+.important-block-title {
+  color: #000000;
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px;
+  margin: 0 0 8px 0;
+}
+
+.important-block-description {
+  color: #000000;
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   .container {
