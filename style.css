@@ -48,22 +48,15 @@ body {
   font-weight: 500;
   margin-right: 12px;
   background: radial-gradient(
-      184.46% 138.07% at -2.03% 23.93%,
-      #0066a0 0%,
-      #007cb6 24.2%,
-      #41b0bd 49.74%,
-      #42beba 62.68%,
-      #61bb9e 74.93%,
-      #afd168 83.97%,
-      #ffc926 100%
-    )
-
-  .material-icons-outlined {
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-  }
+    184.46% 138.07% at -2.03% 23.93%,
+    #0066a0 0%,
+    #007cb6 24.2%,
+    #41b0bd 49.74%,
+    #42beba 62.68%,
+    #61bb9e 74.93%,
+    #afd168 83.97%,
+    #ffc926 100%
+  );
 }
 
 .user-name {
@@ -125,10 +118,6 @@ body {
   flex: 1;
   padding: 32px;
   display: block;
-}
-
-.tab-content {
-  display: none;
 }
 
 .tab-content.active {
@@ -414,6 +403,21 @@ body {
 }
 
 /* Страница 4 */
+
+/* Навигация */
+
+.page {
+  display: none;
+}
+
+.page:target {
+  display: block;
+}
+
+.page:target,
+:root:not(:has(:target)) .page:first-child {
+  display: block;
+}
 
 /* Адаптивность */
 @media (max-width: 768px) {
