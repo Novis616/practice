@@ -500,6 +500,26 @@ body {
   background: #f4f6f8;
 }
 
+/* Страница 5 */
+
+.mentor-block-cards {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.mentor-block {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 24px;
+  align-items: flex-start;
+  border-radius: 12px;
+  border: 1px solid #e2e6ed;
+  gap: 5px;
+  position: relative;
+}
+
 /* Навигация */
 
 .page {
