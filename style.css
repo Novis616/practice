@@ -404,6 +404,102 @@ body {
 
 /* Страница 4 */
 
+.spec-block-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.spec-block {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  align-items: flex-start;
+  border-radius: 12px;
+  border: 1px solid #e2e6ed;
+  gap: 5px;
+  position: relative;
+}
+
+.spec-block-description-block {
+  display: flex;
+  margin-left: auto;
+  padding: 4px 8px;
+  gap: 8px;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.spec-block-description {
+  color: var(--Colors-dark, #151b1e);
+
+  /* Control/S */
+  font-family: "Wix Madefor Display";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 16px; /* 114.286% */
+}
+
+.spec-block-avatar {
+  display: flex;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  margin-top: -36px;
+  border-radius: 100px;
+  background: #f4f6f8;
+}
+
+.spec-block-title {
+  color: var(--Colors-dark, #151b1e);
+
+  /* Header/M */
+  font-family: "Wix Madefor Display";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 120% */
+}
+
+.spec-block-job {
+  color: var(--FieldWrapper-label-text-default, #151b1e);
+  font-family: "Wix Madefor Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px; /* 112.5% */
+}
+
+.spec-block-text {
+  color: var(--Text-Dark, var(--Text-Dark, #151b1e));
+
+  /* Text/M */
+  font-family: "Wix Madefor Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px; /* 137.5% */
+}
+
+.spec-block-icons-block {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.spec-block-icon {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #f4f6f8;
+}
+
 /* Навигация */
 
 .page {
