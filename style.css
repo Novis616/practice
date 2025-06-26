@@ -428,11 +428,11 @@ body {
   gap: 8px;
   border: 1px solid;
   border-radius: 4px;
+  max-width: 50%;
 }
 
 .spec-block-description {
   color: var(--Colors-dark, #151b1e);
-
   /* Control/S */
   font-family: "Wix Madefor Display";
   font-size: 14px;
@@ -554,5 +554,13 @@ body {
 
   .main-content {
     padding: 16px;
+  }
+}
+
+@media (max-width: 973px) {
+  .mentor-block-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 }
