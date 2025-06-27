@@ -32,6 +32,12 @@ function updateNavBarName(employee) {
 function populateEmployeePage(employeeData) {
   const { employee, mentors, helpContacts } = employeeData;
 
+  // Заполняем аватар
+  const avatarElement = document.querySelector(".employee-avatar");
+  if (employee.photo) {
+    avatarElement.innerHTML = `<img src="${employee.photo}" alt="Фото ${employee.firstName}" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;">`;
+  }
+
   // Заполняем имя сотрудника
   const nameElement = document.querySelector(".employee-name");
   nameElement.textContent = `${employee.firstName} ${employee.secondName.charAt(0)}.`;
