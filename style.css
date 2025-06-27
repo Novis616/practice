@@ -614,6 +614,14 @@ body {
   .main-content {
     padding: 16px;
   }
+
+  .page-title {
+    color: #151b1e;
+    font-family: Wix Madefor Display;
+    font-size: 24px;
+    line-height: 40px;
+    letter-spacing: 0%;
+  }
 }
 
 @media (max-width: 973px) {
