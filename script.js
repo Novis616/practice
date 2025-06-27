@@ -69,6 +69,13 @@ function populateEmployeePage(employeeData) {
     positionElement.textContent = employee.position;
   }
 
+  // Email
+
+  const emailElement = detailElements[4]?.querySelector(".detail-value");
+  if (emailElement) {
+    emailElement.textContent = employee.email;
+  }
+
   // Место работы
   const officeElement = detailElements[5]?.querySelector(".detail-value");
   if (officeElement) {
@@ -84,6 +91,8 @@ function populateEmployeePage(employeeData) {
   // Обновляем имя в NavBar
   updateNavBarName(employee);
 }
+
+// Заполнение документов
 
 async function updateDocumentsVisibility() {
   try {
@@ -112,6 +121,8 @@ async function updateDocumentsVisibility() {
     console.error("Ошибка при обновлении списка документов:", error);
   }
 }
+
+//Заполнение наставников
 
 function populateMentors(mentors = []) {
   const mentorBlocks = document.querySelectorAll(".mentor-block");
@@ -160,6 +171,8 @@ function populateMentors(mentors = []) {
     mentorBlocks[i].style.display = "none";
   }
 }
+
+// Заполнение помощи сотруднику
 
 function populateHelpContacts(helpContacts) {
   const contactSections = document.querySelectorAll("#help .spec-block");
