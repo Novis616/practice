@@ -155,6 +155,67 @@ function populateMentors(mentors = []) {
   }
 }
 
+function populateHelpContacts(helpContacts) {
+  const contactSections = document.querySelectorAll("#help .spec-block");
+
+  contactSections.forEach((section, index) => {
+    const contact = helpContacts[index];
+
+    if (!contact) {
+      section.style.display = "none";
+      return;
+    }
+
+    // Заголовок-блок (описание роли)
+    const description = section.querySelector(".spec-block-description");
+    if (description) description.textContent = contact.role;
+
+    // Имя
+    const fullName = section.querySelector(".spec-block-title");
+    if (fullName) fullName.textContent = contact.fullName;
+
+    // Должность
+    const position = section.querySelector(".spec-block-job");
+    if (position) position.textContent = contact.position;
+
+    // Удалим все старые вопросы
+    const oldQuestions = section.querySelectorAll("li.spec-block-text");
+    oldQuestions.forEach((q) => q.remove());
+
+    // Если есть вопросы — вставим их
+    if (contact.questions && contact.questions.length > 0) {
+      const textIntro = section.querySelector("p.spec-block-text");
+      if (textIntro) textIntro.style.display = "block";
+      contact.questions.forEach((question) => {
+        const li = document.createElement("li");
+        li.className = "spec-block-text";
+        li.textContent = question;
+        textIntro.parentNode.insertBefore(li, section.querySelector(".spec-block-icons-block"));
+      });
+    } else {
+      const textIntro = section.querySelector("p.spec-block-text");
+      if (textIntro) textIntro.style.display = "none";
+    }
+
+    // Контакты в иконках (по ховеру, как раньше)
+    const iconBlocks = section.querySelectorAll(".spec-block-icon");
+    const contactValues = [
+      contact.officeAddress || "",
+      contact.email || "",
+      contact.phone || "",
+      contact.telegram || "",
+      (contact.fullName.match(/\b\w/g) || []).join("").toUpperCase(), // MT
+    ];
+
+    iconBlocks.forEach((icon, i) => {
+      const span = document.createElement("span");
+      span.textContent = contactValues[i];
+      span.classList.add("icon-tooltip");
+      icon.appendChild(span);
+    });
+  });
+}
+
 // Основная функция для загрузки и заполнения данных
 async function loadAndPopulateEmployeeData() {
   try {
@@ -164,6 +225,7 @@ async function loadAndPopulateEmployeeData() {
 
     populateEmployeePage(employeeData); // Заполняем страницу
     populateMentors(employeeData.mentors); // Заполняем данные о наставнике
+    populateHelpContacts(employeeData.helpContacts); // Заполняем данные о помощи
     updateDocumentsVisibility(employeeData.documents); // Обновляем отображение документов
 
     console.log("Данные сотрудника успешно загружены и отображены");
