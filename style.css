@@ -493,11 +493,17 @@ body {
 
 .spec-block-icon {
   display: flex;
+  position: relative; /* важно для позиционирования tooltip */
+  cursor: pointer;
   padding: 8px;
   align-items: center;
   gap: 10px;
   border-radius: 8px;
   background: #f4f6f8;
+}
+
+.spec-block-icon:hover .mentor-icon-tooltip {
+  opacity: 1;
 }
 
 /* Страница 5 */
@@ -518,6 +524,31 @@ body {
   border: 1px solid #e2e6ed;
   gap: 5px;
   position: relative;
+}
+
+.mentor-icon-tooltip {
+  position: absolute;
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f4f6f8;
+  color: var(--Text-Dark, #151b1e);
+
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
 }
 
 /* Навигация */

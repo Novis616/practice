@@ -107,6 +107,54 @@ async function updateDocumentsVisibility() {
   }
 }
 
+function populateMentors(mentors = []) {
+  const mentorBlocks = document.querySelectorAll(".mentor-block");
+  if (!mentorBlocks.length) return;
+
+  mentors.forEach((mentor, index) => {
+    const block = mentorBlocks[index];
+    if (!block) return;
+
+    const nameEl = block.querySelector(".spec-block-title");
+    const positionEl = block.querySelector(".spec-block-job");
+    const roleEl = block.querySelector(".spec-block-description");
+
+    if (nameEl) nameEl.textContent = mentor.fullName || "Имя не указано";
+    if (positionEl) positionEl.textContent = mentor.position || "Должность не указана";
+    if (roleEl) roleEl.textContent = mentor.role || "Роль не указана";
+
+    const icons = block.querySelectorAll(".spec-block-icon");
+
+    const iconData = [
+      { value: mentor.officeAddress },
+      { value: mentor.email },
+      { value: mentor.phone },
+      { value: mentor.telegram },
+      { value: mentor.mattermost },
+    ];
+
+    icons.forEach((icon, i) => {
+      // Удаляем старый текст, если есть
+      const oldText = icon.querySelector(".mentor-icon-tooltip");
+      if (oldText) oldText.remove();
+
+      // Создаём новый элемент с данными
+      const tooltip = document.createElement("div");
+      tooltip.classList.add("mentor-icon-tooltip");
+      tooltip.textContent = iconData[i]?.value || "Нет данных";
+
+      icon.appendChild(tooltip);
+    });
+
+    block.style.display = "";
+  });
+
+  // Скрыть лишние блоки
+  for (let i = mentors.length; i < mentorBlocks.length; i++) {
+    mentorBlocks[i].style.display = "none";
+  }
+}
+
 // Основная функция для загрузки и заполнения данных
 async function loadAndPopulateEmployeeData() {
   try {
@@ -114,11 +162,9 @@ async function loadAndPopulateEmployeeData() {
 
     const employeeData = await fetchEmployeeData();
 
-    // Заполняем страницу
-    populateEmployeePage(employeeData);
-
-    // Обновляем отображение документов
-    updateDocumentsVisibility(employeeData.documents);
+    populateEmployeePage(employeeData); // Заполняем страницу
+    populateMentors(employeeData.mentors); // Заполняем данные о наставнике
+    updateDocumentsVisibility(employeeData.documents); // Обновляем отображение документов
 
     console.log("Данные сотрудника успешно загружены и отображены");
   } catch (error) {
