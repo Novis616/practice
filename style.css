@@ -177,10 +177,14 @@ body {
 }
 
 .employee-name {
+  color: var(--Colors-dark, #151b1e);
+
+  /* Header/M */
+  font-family: "Wix Madefor Display";
   font-size: 20px;
-  font-weight: 500;
-  color: #202124;
-  margin-bottom: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 120% */
 }
 
 .employee-details {
