@@ -1,18 +1,12 @@
 const CACHE_NAME = "my-pwa-v1";
-const BASE_PATH = "/practice/"; // Ваш base path
+const BASE_PATH = "/practice/";
 const OFFLINE_URL = BASE_PATH + "offline.html";
 
-// Ресурсы для кеширования с учетом base path
-const urlsToCache = [
-  BASE_PATH,
-  BASE_PATH + "static/js/bundle.js",
-  BASE_PATH + "static/css/main.css",
-  BASE_PATH + "manifest.json",
-  OFFLINE_URL,
-];
+// Ресурсы для кеширования (для Vite структуры)
+const urlsToCache = [BASE_PATH, BASE_PATH + "manifest.json", OFFLINE_URL];
 
-// Страницы для кеширования (навигационные запросы)
-const pagesToCache = ["/", "/about", "/services", "/contact"];
+// Страницы для кеширования с правильными путями
+const pagesToCache = [BASE_PATH, BASE_PATH + "about", BASE_PATH + "services", BASE_PATH + "contact"];
 
 // Установка Service Worker
 self.addEventListener("install", (event) => {
@@ -23,11 +17,14 @@ self.addEventListener("install", (event) => {
       .open(CACHE_NAME)
       .then((cache) => {
         console.log("Кеширование ресурсов");
-        return cache.addAll(urlsToCache);
+        // Кешируем только гарантированно существующие ресурсы
+        return cache.addAll([BASE_PATH, BASE_PATH + "manifest.json", OFFLINE_URL]);
       })
       .then(() => {
-        // Принудительная активация нового SW
         return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error("Ошибка при кешировании:", error);
       }),
   );
 });
@@ -50,13 +47,12 @@ self.addEventListener("activate", (event) => {
         );
       })
       .then(() => {
-        // Принудительное управление всеми клиентами
         return self.clients.claim();
       }),
   );
 });
 
-// Обработка запросов
+// Единый обработчик запросов
 self.addEventListener("fetch", (event) => {
   // Только для GET-запросов
   if (event.request.method !== "GET") return;
@@ -64,22 +60,32 @@ self.addEventListener("fetch", (event) => {
   // Навигационные запросы (переход между страницами)
   if (event.request.mode === "navigate") {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        // Если запрос не удался, проверяем кеш
-        return caches.match(event.request).then((response) => {
-          // Если страница есть в кеше, возвращаем её
-          if (response) {
-            return response;
+      fetch(event.request)
+        .then((response) => {
+          // Кешируем успешные навигационные запросы
+          if (response.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, response.clone());
+            });
           }
-          // Иначе возвращаем offline-страницу
-          return caches.match(OFFLINE_URL);
-        });
-      }),
+          return response;
+        })
+        .catch(() => {
+          // Если запрос не удался, проверяем кеш
+          return caches.match(event.request).then((response) => {
+            // Если страница есть в кеше, возвращаем её
+            if (response) {
+              return response;
+            }
+            // Иначе возвращаем offline-страницу
+            return caches.match(OFFLINE_URL);
+          });
+        }),
     );
     return;
   }
 
-  // Обычные запросы (изображения, CSS, JS)
+  // Обычные запросы (изображения, CSS, JS, assets)
   event.respondWith(
     caches.match(event.request).then((response) => {
       // Если ресурс есть в кеше, возвращаем его
@@ -98,7 +104,7 @@ self.addEventListener("fetch", (event) => {
           // Клонируем ответ для кеширования
           const responseToCache = response.clone();
 
-          // Кешируем ответ
+          // Кешируем ответ (особенно для assets)
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
@@ -128,27 +134,5 @@ self.addEventListener("fetch", (event) => {
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
-  }
-});
-
-// Кеширование посещенных страниц
-self.addEventListener("fetch", (event) => {
-  if (event.request.mode === "navigate") {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        return fetch(event.request)
-          .then((response) => {
-            // Кешируем успешные навигационные запросы
-            if (response.status === 200) {
-              cache.put(event.request, response.clone());
-            }
-            return response;
-          })
-          .catch(() => {
-            // Возвращаем кешированную версию или offline-страницу
-            return cache.match(event.request) || cache.match(OFFLINE_URL);
-          });
-      }),
-    );
   }
 });
