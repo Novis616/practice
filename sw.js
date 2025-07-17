@@ -1,8 +1,15 @@
 const CACHE_NAME = "my-pwa-v1";
-const OFFLINE_URL = "/offline.html";
+const BASE_PATH = "/practice/"; // Ваш base path
+const OFFLINE_URL = BASE_PATH + "offline.html";
 
-// Ресурсы для кеширования
-const urlsToCache = ["/", "/static/js/bundle.js", "/static/css/main.css", "/manifest.json", OFFLINE_URL];
+// Ресурсы для кеширования с учетом base path
+const urlsToCache = [
+  BASE_PATH,
+  BASE_PATH + "static/js/bundle.js",
+  BASE_PATH + "static/css/main.css",
+  BASE_PATH + "manifest.json",
+  OFFLINE_URL,
+];
 
 // Страницы для кеширования (навигационные запросы)
 const pagesToCache = ["/", "/about", "/services", "/contact"];

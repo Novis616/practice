@@ -5,13 +5,10 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/practice/",
+
+  // Убираем проблемную конфигурацию build
   build: {
-    rollupOptions: {
-      input: {
-        main: "./index.html",
-        sw: "./public/sw.js",
-      },
-    },
+    outDir: "dist",
   },
 
   server: {
