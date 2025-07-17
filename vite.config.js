@@ -5,4 +5,18 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/practice/",
+  build: {
+    rollupOptions: {
+      input: {
+        main: "./index.html",
+        sw: "./public/sw.js",
+      },
+    },
+  },
+
+  server: {
+    headers: {
+      "Service-Worker-Allowed": "/",
+    },
+  },
 });
