@@ -265,7 +265,7 @@ async function loadAndPopulateEmployeeData() {
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register('/practice/sw.js')
+      .register("/practice/sw.js")
       .then((registration) => {
         console.log("SW зарегистрирован: ", registration);
       })
@@ -336,15 +336,22 @@ window.addEventListener("appinstalled", (evt) => {
   }
 });
 
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const sidebar = document.querySelector('.sidebar');
+const toggleBtn = document.getElementById("menuToggle");
+const sidebar = document.querySelector(".sidebar");
+const menuLinks = document.querySelectorAll(".nav-menu a");
 
-  menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
+toggleBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+});
+
+// Автозакрытие на мобилке при переходе по ссылке
+menuLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove("open");
+    }
   });
-</script>
-
+});
 
 // Обновлённая функция фильтрации документов
 function updateDocumentsVisibility(documents) {
