@@ -265,7 +265,7 @@ async function loadAndPopulateEmployeeData() {
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register(`${import.meta.env.BASE_URL}sw.js`)
+      .register('/practice/sw.js')
       .then((registration) => {
         console.log("SW зарегистрирован: ", registration);
       })
