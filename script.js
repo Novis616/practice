@@ -1,3 +1,6 @@
+let deferredPrompt;
+let installButton;
+
 // GET запрос для получения данных сотрудника
 async function fetchEmployeeData() {
   try {
@@ -257,6 +260,81 @@ async function loadAndPopulateEmployeeData() {
     }
   }
 }
+
+// Регистрация Service Worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((registration) => {
+        console.log("SW зарегистрирован: ", registration);
+      })
+      .catch((registrationError) => {
+        console.log("SW регистрация не удалась: ", registrationError);
+      });
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  // Получаем кнопку установки
+  installButton = document.getElementById("install-button");
+
+  // Изначально скрываем кнопку
+  if (installButton) {
+    installButton.style.display = "none";
+  }
+});
+
+// Событие перед показом промпта установки
+window.addEventListener("beforeinstallprompt", (e) => {
+  console.log("beforeinstallprompt сработал");
+
+  // Предотвращаем автоматический показ промпта
+  e.preventDefault();
+
+  // Сохраняем событие для использования позже
+  deferredPrompt = e;
+
+  // Показываем кнопку установки
+  if (installButton) {
+    installButton.style.display = "block";
+  }
+});
+
+// Обработчик клика на кнопку установки
+function handleInstallClick() {
+  if (deferredPrompt) {
+    // Показываем промпт установки
+    deferredPrompt.prompt();
+
+    // Ждем ответа пользователя
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("Пользователь принял установку");
+      } else {
+        console.log("Пользователь отклонил установку");
+      }
+
+      // Очищаем сохраненное событие
+      deferredPrompt = null;
+
+      // Скрываем кнопку
+      if (installButton) {
+        installButton.style.display = "none";
+      }
+    });
+  }
+}
+
+// Событие после успешной установки
+window.addEventListener("appinstalled", (evt) => {
+  console.log("PWA успешно установлено");
+
+  // Скрываем кнопку установки
+  if (installButton) {
+    installButton.style.display = "none";
+  }
+});
 
 // Обновлённая функция фильтрации документов
 function updateDocumentsVisibility(documents) {

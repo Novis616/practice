@@ -12,7 +12,8 @@
     "prettier:write": "prettier --write src/**/*",
     "stylelint": "stylelint **/*.css --allow-empty-input",
     "stylelint:fix": "stylelint **/*.css --allow-empty-input --fix",
-    "lint": "npm run eslint && npm run prettier && npm run stylelint"
+    "lint": "npm run eslint && npm run prettier && npm run stylelint",
+    "test": "jest"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -30,6 +31,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.2.0",
+    "jest": "^30.0.4",
     "prettier": "^3.5.3",
     "stylelint": "^16.21.0",
     "stylelint-config-standard": "^38.0.0",
