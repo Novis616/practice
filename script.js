@@ -242,20 +242,20 @@ document.addEventListener("DOMContentLoaded", () => {
   loadAndPopulateEmployeeData();
 
   const toggleBtn = document.getElementById("menuToggle");
-  const navMenu = document.querySelector(".nav-menu");
+  const navSidebar = document.querySelector(".nav-sidebar");
   const menuLinks = document.querySelectorAll(".nav-menu a");
 
-  if (toggleBtn && navMenu) {
+  if (toggleBtn && navSidebar) {
     toggleBtn.addEventListener("click", () => {
-      navMenu.classList.toggle("open");
+      navSidebar.classList.toggle("open");
     });
   }
 
-  if (navMenu) {
+  if (navSidebar) {
     menuLinks.forEach((link) => {
       link.addEventListener("click", () => {
         if (window.innerWidth <= 768) {
-          navMenu.classList.remove("open");
+          navSidebar.classList.remove("open");
         }
       });
     });
