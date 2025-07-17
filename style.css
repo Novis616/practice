@@ -631,7 +631,7 @@ body {
   }
 
   /* Показать меню при классе .open */
-  .nav-menu.open {
+  .nav-sidebar.open {
     transform: translateX(0);
   }
 
