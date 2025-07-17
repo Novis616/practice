@@ -83,6 +83,19 @@ body {
   }
 }
 
+/* Скрываем кнопку на десктопе */
+.menu-toggle {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
 .nav-item {
   margin-bottom: 2px;
 }
@@ -621,6 +634,34 @@ body {
     font-size: 24px;
     line-height: 40px;
     letter-spacing: 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
   }
 }
 

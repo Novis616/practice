@@ -336,6 +336,16 @@ window.addEventListener("appinstalled", (evt) => {
   }
 });
 
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.querySelector('.sidebar');
+
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+</script>
+
+
 // Обновлённая функция фильтрации документов
 function updateDocumentsVisibility(documents) {
   const normalizedDocs = documents.map((doc) => doc.toLowerCase().replace(/\s+/g, " ").trim());
