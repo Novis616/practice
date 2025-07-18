@@ -7,13 +7,7 @@
 body {
   background-color: #ffffff;
   color: #333;
-}
-
-.wix-madefor-display-<uniquifier > {
-  font-family: "Wix Madefor Display", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+  font-family: Wix Madefor Display;
 }
 
 .container {
